@@ -6,5 +6,7 @@ describe("api test", () => {
     cy.loginUI(email, password);
   });
 
-  it("intercept article", () => {});
+  it("intercept article", () => {
+    cy.visit("/");
+  });
 });

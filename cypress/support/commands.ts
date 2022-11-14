@@ -37,12 +37,14 @@
 // }
 
 Cypress.Commands.add("loginUI", (email: string, password: string) => {
+  cy.intercept("POST", "https://api.realworld.io/api/users/login").as("login");
   cy.visit("/login");
   cy.location("pathname").then((pathname) => {
-    if (pathname === "login") {
+    if (pathname === "/login") {
       cy.get('input[formcontrolname="email"]').type(email);
       cy.get('input[formcontrolname="password"]').type(password);
       cy.get('button[type="submit"]').click();
+      cy.wait("@login");
     }
   });
 });
